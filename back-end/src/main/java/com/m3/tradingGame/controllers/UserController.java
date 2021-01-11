@@ -14,8 +14,6 @@ import com.m3.tradingGame.dao.ItemDao;
 import com.m3.tradingGame.dao.UserDao;
 import com.m3.tradingGame.entities.User;
 
-import smith.app.model.ToDo;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
