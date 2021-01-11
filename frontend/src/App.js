@@ -9,7 +9,7 @@ import {
 import LoginPage from "./components/Login/LoginPage";
 import SignupPage from "./components/Login/SignupPage";
 import DashBoard from "./components/DashBoard/DashBoard";
-import ProfileInfo from "./components/Profile/ProfileInfo";
+import ProfileInfo from "./components/DashBoard/Profile/ProfileInfo";
 
 function App() {
   return (
