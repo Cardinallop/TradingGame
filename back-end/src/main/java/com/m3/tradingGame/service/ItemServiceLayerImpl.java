@@ -2,6 +2,10 @@ package com.m3.tradingGame.service;
 
 import com.m3.tradingGame.dao.ItemDao;
 import com.m3.tradingGame.dao.UserDao;
+import com.m3.tradingGame.entities.Item;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +20,17 @@ public class ItemServiceLayerImpl implements ItemServiceLayer {
         this.itemDao = itemDao;
         this.userDao = userDao;
     }
+
+	@Override
+	public List<Item> getAllItems() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Item getItemById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
