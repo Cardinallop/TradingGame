@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import BuyItem from "./BuyItem";
 
 class DashBoard extends Component{
 
@@ -9,7 +10,8 @@ class DashBoard extends Component{
     render(){
 
         return(
-            <div>dash board</div>
+            <div><BuyItem /></div>
+            
         );
     }
 
