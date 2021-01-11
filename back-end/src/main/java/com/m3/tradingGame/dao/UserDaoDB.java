@@ -5,11 +5,14 @@
  */
 package com.m3.tradingGame.dao;
 
+import com.m3.tradingGame.dao.ItemDaoDB.ItemMapper;
+import com.m3.tradingGame.entities.Item;
 import com.m3.tradingGame.entities.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,7 +52,7 @@ public class UserDaoDB implements UserDao {
         for(Item item : items) {
             final String SELECT_QUANTITY_OF_ITEM = "SELECT iu.* FROM itemUser iu "
                     + "WHERE iu.userId = ? AND iu.itemId = ?";
-            Integer q = jdbc.queryForObject(SELECT_QUANTITY_OF_ITEM, new ItemUserMapper(), id, item.getId());
+            Integer q = jdbc.queryForObject(SELECT_QUANTITY_OF_ITEM, Integer.class, id, item.getId());
             hmap.put(item, q);
         }
         return hmap;
@@ -57,15 +60,14 @@ public class UserDaoDB implements UserDao {
 
     @Override
     public List<User> getAllUser() {
-        final String SELECT_ALL_USERS = "SELECT * FROM user";
+        final String SELECT_ALL_USERS = "SELECT * FROM user u INNER JOIN difficulty d ON u.difficultyId = d.id";
         List<User> users = jdbc.query(SELECT_ALL_USERS, new UserMapper());
-        associateDifficultyAndItems(users);
+        associateItems(users);
         return users;
     }
     
-    private void associateDifficultyAndItems(List<User> users) {
+    private void associateItems(List<User> users) {
         for (User user : users) {
-            user.setDifficulty(getDifficultyForUser(user.getId()));
             user.setItems(getItemsForUser(user.getId()));
         }
     }
@@ -73,8 +75,7 @@ public class UserDaoDB implements UserDao {
     @Override
     @Transactional
     public User addUser(User user) {
-        final String GET_DIFFICULTY_ID = "SELECT id FROM difficulty d WHERE d.name = ?";
-        int difficulty = jdbc.queryForObject(GET_DIFFICULTY_ID, user.getDifficulty());
+        int difficulty = getDifficultyId(user);
         final String INSERT_USER = "INSERT INTO user(username, firstName, lastName, password, money, difficultyId) "
                 + "VALUES(?,?,?,?,?,?)";
         jdbc.update(INSERT_USER,
@@ -82,17 +83,59 @@ public class UserDaoDB implements UserDao {
                 user.getFirstName(), 
                 user.getLastName(), 
                 user.getPassword(), 
-                user.getMoney());
+                user.getMoney(),
+                difficulty);
+        
+        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        user.setId(newId);
+        insertItemUser(user);
+        return user;
+    }
+    
+    private Integer getDifficultyId(User user) {
+        final String GET_DIFFICULTY_ID = "SELECT id FROM difficulty d WHERE d.name = ?";
+        return jdbc.queryForObject(GET_DIFFICULTY_ID, Integer.class, user.getDifficulty());
+    }
+    
+    private void insertItemUser(User user) {
+        final String INSERT_ITEM_USER = "INSERT INTO "
+                + "itemUser(quantity, itemId, userId) VALUES (?,?,?)";
+        user.getItems().forEach((k,v) -> {
+            jdbc.update(INSERT_ITEM_USER,
+                    v,
+                    k.getId(),
+                    user.getId());
+        });
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int difficulty = getDifficultyId(user);
+        final String UPDATE_USER = "UPDATE user SET username = ?, firstName = ?, "
+                + "lastName = ?, password = ?, money = ?, difficultyId = ? WHERE id = ?";
+        jdbc.update(UPDATE_USER,
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPassword(),
+                user.getMoney(),
+                difficulty,
+                user.getId());
+        
+        final String DELETE_ITEM_USER = "DELETE FROM itemUser WHERE userId = ?";
+        jdbc.update(DELETE_ITEM_USER, user.getId());
+        insertItemUser(user);
     }
 
     @Override
+    @Transactional
     public void deleteUserById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_ITEM_USER = "DELETE FROM itemUser WHERE userId = ?";
+        jdbc.update(DELETE_ITEM_USER, id);
+        
+        final String DELETE_USER = "DELETE FROM user WHERE id = ?";
+        jdbc.update(DELETE_USER, id);
     }
     
     public static final class UserMapper implements RowMapper<User> {
@@ -109,15 +152,6 @@ public class UserDaoDB implements UserDao {
             user.setDifficulty(rs.getString("d.name"));
             
             return user;
-        }
-        
-    }
-    
-    public static final class ItemUserMapper implements RowMapper<Integer> {
-
-        @Override
-        public Integer mapRow(ResultSet rs, int index) throws SQLException {
-            return rs.getInt("quantity");
         }
         
     }
