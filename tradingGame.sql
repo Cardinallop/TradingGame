@@ -37,3 +37,8 @@ CREATE TABLE itemUser(
     FOREIGN KEY (userId) REFERENCES user(id)
 
 );
+
+_____________________________________________________________________________________
+Query:
+
+INSERT INTO difficulty (name) VALUES ("easy"), ("medium"), ("hard");
