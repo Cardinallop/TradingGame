@@ -1,6 +1,7 @@
 package com.m3.tradingGame.dao;
 
 import com.m3.tradingGame.entities.Item;
+import com.m3.tradingGame.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,6 +37,18 @@ public class ItemDaoDB implements ItemDao{
     public List<Item> getAllItems() {
         final String SELECT_ALL_ITEMS = "SELECT * FROM item";
         return jdbc.query(SELECT_ALL_ITEMS, new ItemMapper());
+    }
+
+    @Override
+    public List<Item> getAllItemsByUserId(User user) {
+        try {
+            final String SELECT_ALL_ITEMS_BY_USERID = "SELECT i.* FROM item i " +
+                    "JOIN itemUser iu ON  iu.itemId = i.id WHERE iu.userId =?";
+            List <Item> items = jdbc.query(SELECT_ALL_ITEMS_BY_USERID, new ItemMapper(), user.getId());
+            return items;
+        } catch (DataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
