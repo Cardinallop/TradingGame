@@ -59,7 +59,7 @@ public class UserDaoDB implements UserDao {
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<User> getAllUsers() {
         final String SELECT_ALL_USERS = "SELECT * FROM user u INNER JOIN difficulty d ON u.difficultyId = d.id";
         List<User> users = jdbc.query(SELECT_ALL_USERS, new UserMapper());
         associateItems(users);
