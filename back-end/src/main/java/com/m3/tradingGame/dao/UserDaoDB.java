@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,7 +47,7 @@ public class UserDaoDB implements UserDao {
         final String SELECT_ITEMS_FOR_USER = "SELECT i.* FROM item i "
                 + "INNER JOIN itemUser iu ON i.id = iu.itemId WHERE iu.userId = ?";
         List<Item> items = jdbc.query(SELECT_ITEMS_FOR_USER, new ItemMapper(), id);
-        HashMap<Item, Integer> hmap = new HashMap<Item, Integer>();
+        HashMap<Item, Integer> hmap = new HashMap<>();
         for(Item item : items) {
             final String SELECT_QUANTITY_OF_ITEM = "SELECT quantity FROM itemUser "
                     + "WHERE userId = ? AND itemId = ?";
@@ -83,7 +82,7 @@ public class UserDaoDB implements UserDao {
                 user.getFirstName(), 
                 user.getLastName(), 
                 user.getPassword(), 
-                user.getMoney(),
+                user.getRealized(),
                 difficulty);
         
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -119,7 +118,7 @@ public class UserDaoDB implements UserDao {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getPassword(),
-                user.getMoney(),
+                user.getRealized(),
                 difficulty,
                 user.getId());
         
@@ -157,7 +156,7 @@ public class UserDaoDB implements UserDao {
             user.setFirstName(rs.getString("firstName"));
             user.setLastName(rs.getString("lastName"));
             user.setPassword(rs.getString("password"));
-            user.setMoney(rs.getBigDecimal("money"));
+            user.setRealized(rs.getBigDecimal("money"));
             user.setDifficulty(rs.getString("name"));
             
             return user;

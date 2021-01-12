@@ -20,7 +20,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
-    private BigDecimal money;
+    private BigDecimal realized;
+    private BigDecimal unrealized;
     private String difficulty;
     private HashMap<Item, Integer> items;
 
@@ -64,13 +65,22 @@ public class User {
         this.password = password;
     }
 
-    public BigDecimal getMoney() {
-        return money;
+    public BigDecimal getRealized() {
+        return realized;
     }
 
-    public void setMoney(BigDecimal money) {
-        money = money.setScale(2, RoundingMode.HALF_UP);
-        this.money = money;
+    public void setRealized(BigDecimal realized) {
+        realized = realized.setScale(2, RoundingMode.HALF_UP);
+        this.realized = realized;
+    }
+    
+    public BigDecimal getUnrealized() {
+        return unrealized;
+    }
+
+    public void setUnrealized(BigDecimal unrealized) {
+        unrealized = unrealized.setScale(2, RoundingMode.HALF_UP);
+        this.unrealized = unrealized;
     }
 
     public String getDifficulty() {
@@ -97,7 +107,8 @@ public class User {
         hash = 97 * hash + Objects.hashCode(this.firstName);
         hash = 97 * hash + Objects.hashCode(this.lastName);
         hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.money);
+        hash = 97 * hash + Objects.hashCode(this.realized);
+        hash = 97 * hash + Objects.hashCode(this.unrealized);
         hash = 97 * hash + Objects.hashCode(this.difficulty);
         hash = 97 * hash + Objects.hashCode(this.items);
         return hash;
@@ -133,7 +144,10 @@ public class User {
         if (!Objects.equals(this.difficulty, other.difficulty)) {
             return false;
         }
-        if (!Objects.equals(this.money, other.money)) {
+        if (!Objects.equals(this.realized, other.realized)) {
+            return false;
+        }
+        if (!Objects.equals(this.unrealized, other.unrealized)) {
             return false;
         }
         if (!Objects.equals(this.items, other.items)) {

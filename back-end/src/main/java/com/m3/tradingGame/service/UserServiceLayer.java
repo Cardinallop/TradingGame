@@ -11,4 +11,6 @@ public interface UserServiceLayer {
 	public User addUser(User u);
 	public boolean updateUser(int id, User u);
 	public boolean deleteUser(int id);
+        
+        public List<User> getUsersByDifficulty(String difficulty);
 }
