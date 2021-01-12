@@ -33,7 +33,7 @@ public class UserDaoDB implements UserDao {
     @Override
     public User getUserById(int id) {
         try {
-            final String SELECT_USER_BY_ID = "SELECT * FROM user u "
+            final String SELECT_USER_BY_ID = "SELECT u.*, d.name FROM user u "
                     + "INNER JOIN difficulty d ON u.difficultyId = d.id WHERE u.id = ?";
             User user = jdbc.queryForObject(SELECT_USER_BY_ID, new UserMapper(), id);
             user.setItems(getItemsForUser(id));
@@ -50,8 +50,8 @@ public class UserDaoDB implements UserDao {
         List<Item> items = jdbc.query(SELECT_ITEMS_FOR_USER, new ItemMapper(), id);
         HashMap<Item, Integer> hmap = new HashMap<Item, Integer>();
         for(Item item : items) {
-            final String SELECT_QUANTITY_OF_ITEM = "SELECT iu.* FROM itemUser iu "
-                    + "WHERE iu.userId = ? AND iu.itemId = ?";
+            final String SELECT_QUANTITY_OF_ITEM = "SELECT quantity FROM itemUser "
+                    + "WHERE userId = ? AND itemId = ?";
             Integer q = jdbc.queryForObject(SELECT_QUANTITY_OF_ITEM, Integer.class, id, item.getId());
             hmap.put(item, q);
         }
@@ -60,7 +60,7 @@ public class UserDaoDB implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        final String SELECT_ALL_USERS = "SELECT * FROM user u INNER JOIN difficulty d ON u.difficultyId = d.id";
+        final String SELECT_ALL_USERS = "SELECT u.*, d.name FROM user u INNER JOIN difficulty d ON u.difficultyId = d.id";
         List<User> users = jdbc.query(SELECT_ALL_USERS, new UserMapper());
         associateItems(users);
         return users;
@@ -137,19 +137,28 @@ public class UserDaoDB implements UserDao {
         final String DELETE_USER = "DELETE FROM user WHERE id = ?";
         jdbc.update(DELETE_USER, id);
     }
+
+    @Override
+    public List<User> getUsersByDifficulty(String difficulty) {
+        final String GET_USERS_BY_DIFFICULTY = "SELECT u.*, d.name FROM user u "
+                + "INNER JOIN difficulty d ON u.difficultyId = d.id WHERE d.name = ? ORDER BY u.money DESC LIMIT 0, 5 ";
+        List<User> users = jdbc.query(GET_USERS_BY_DIFFICULTY, new UserMapper(), difficulty);
+        associateItems(users);
+        return users;
+    }
     
     public static final class UserMapper implements RowMapper<User> {
 
         @Override
         public User mapRow(ResultSet rs, int index) throws SQLException {
             User user = new User();
-            user.setId(rs.getInt("u.id"));
-            user.setUsername(rs.getString("u.username"));
-            user.setFirstName(rs.getString("u.firstName"));
-            user.setLastName(rs.getString("u.lastName"));
-            user.setPassword(rs.getString("u.password"));
-            user.setMoney(rs.getBigDecimal("u.money"));
-            user.setDifficulty(rs.getString("d.name"));
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setFirstName(rs.getString("firstName"));
+            user.setLastName(rs.getString("lastName"));
+            user.setPassword(rs.getString("password"));
+            user.setMoney(rs.getBigDecimal("money"));
+            user.setDifficulty(rs.getString("name"));
             
             return user;
         }
