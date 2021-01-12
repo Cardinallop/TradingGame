@@ -61,9 +61,22 @@ class BuyItem extends Component{
         this.setState({items: newState});
     }
 
+    /**
+     * This method will convert the map of selected items into a JSON and send it as a post request to the api
+     */
+    buyItems = () => {
+        let selected = this.state.itemsSold;
+        let json = [];
+        for(let[key,value] of selected){
+            json.push(value);
+        }
+
+        //== INCOMPLETE ==
+        //write api call to server
+    }
+
     render(){
         return (
-            
 
             <div className="card">
                 <div className="card-header">Buy Items</div>
