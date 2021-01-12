@@ -86,6 +86,8 @@ public class UserServiceLayerImpl implements UserServiceLayer {
 	public boolean updateUser(int id, User u) {
             try {
                 u.setId(id);
+                if (hashString(u.getPassword()) == userDao.getUserById(id).getPassword())
+                    return false;
                 userDao.updateUser(u);
                 return true;
             } catch(Exception e) {
