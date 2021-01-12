@@ -37,51 +37,70 @@ public class MainController {
 
     ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
 
-    @GetMapping
+    //GET ENDPOINTS
+
+    @GetMapping("/item")
     public ResponseEntity<List<Item>> getAllItems() {
         List items = itemService.getAllItems();
 
         if (items.isEmpty()) {
             response = new ResponseEntity("There are no items to display", null, HttpStatus.NOT_FOUND);
         } else {
-            response = new ResponseEntity(items, HttpStatus.FOUND);
+            response = new ResponseEntity(items, HttpStatus.CREATED);
+            response = new ResponseEntity(items, HttpStatus.OK);
         }
         return response;
     }
-    
-    @GetMapping("/admin")
-	public ResponseEntity<List<User>> getAllUsers() {
-		
-    	List<User> users = userService.getAllUsers();
-    	
-    	if (users.isEmpty()) {
-            response = new ResponseEntity("There are no items to display", null, HttpStatus.NOT_FOUND);
+    @GetMapping("/item/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable int id) {
+        Item item = itemService.getItemById(id);
+
+        if(item == null) {
+            response = new ResponseEntity("No such Item exists", null, HttpStatus.NOT_FOUND);
         } else {
-            response = new ResponseEntity(users, HttpStatus.FOUND);
+            response = new ResponseEntity(item, HttpStatus.OK);
         }
-        return response;
-	}
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable int id){
-    	Item result = itemService.getItemById(id);
-        if (result == null) {
-            response = new ResponseEntity(null, HttpStatus.NOT_FOUND);
-        }
-        response = new ResponseEntity(result, HttpStatus.OK);
         return response;
     }
-    
-    @GetMapping("/admin/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id){
-    	User result = userService.getUserById(id);
-        if (result == null) {
-            response = new ResponseEntity(null, HttpStatus.NOT_FOUND);
+
+    @GetMapping("/admin/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List users = userService.getAllUsers();
+
+        if(users.isEmpty()) {
+            response = new ResponseEntity("There are no users to display", null, HttpStatus.NOT_FOUND);
+        } else {
+            response = new ResponseEntity(users, HttpStatus.OK);
         }
-        response = new ResponseEntity(result, HttpStatus.OK);
         return response;
     }
-    
+
+    @GetMapping("/admin/user={id}")
+    public ResponseEntity<Item> getUserById(@PathVariable int id) {
+        User user = userService.getUserById(id);
+
+        if(user == null) {
+            response = new ResponseEntity("No such user exists", null, HttpStatus.NOT_FOUND);
+        } else {
+            response = new ResponseEntity(user, HttpStatus.OK);
+        }
+        return response;
+    }
+
+    @GetMapping("/userItems")
+    public ResponseEntity<Item> getAllItemsByUserId(@RequestBody User user) {
+        List items = itemService.getAllItemsByUserId(user);
+
+        if (items.isEmpty()) {
+            response = new ResponseEntity("No items for userId: " + user.getId(), null, HttpStatus.NOT_FOUND);
+        } else {
+            response = new ResponseEntity(items, HttpStatus.OK);
+        }
+        return response;
+    }
+
+    //POST ENDPOINTS
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Item> createItem(@RequestBody Item i) {
@@ -100,7 +119,9 @@ public class MainController {
         	return response = new ResponseEntity(null, HttpStatus.NOT_FOUND);
         return response = new ResponseEntity(result, HttpStatus.CREATED);
     }
-    
+
+    // PUT ENDPOINTS
+
     @PutMapping("/{id}")
     public ResponseEntity updateItem(@PathVariable int id, @RequestBody Item i) {
         ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -122,6 +143,8 @@ public class MainController {
         }
         return response;
     }
+
+    //DELETE ENDPOINTS
     
     @DeleteMapping("/{id}")
     public ResponseEntity deleteItem(@PathVariable int id) {
@@ -138,7 +161,5 @@ public class MainController {
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
-    
-    
-	
+
 }
