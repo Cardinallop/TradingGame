@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceLayerImpl implements UserServiceLayer {
 
-    private ItemDao itemDao;
-    private UserDao userDao;
+    private final ItemDao itemDao;
+    private final UserDao userDao;
 
     @Autowired
     public UserServiceLayerImpl(ItemDao itemDao, UserDao userDao) {
@@ -55,7 +55,9 @@ public class UserServiceLayerImpl implements UserServiceLayer {
         }
 
 	@Override
-	public User addUser(User u) {
+	public User addUser(User u) throws
+                UserDataValidationException{
+                validateUserData(u);
                 u.setPassword(hashString(u.getPassword()));
                 setUnrealized(u);
                 return userDao.addUser(u);
@@ -86,7 +88,7 @@ public class UserServiceLayerImpl implements UserServiceLayer {
 	public boolean updateUser(int id, User u) {
             try {
                 u.setId(id);
-                if (hashString(u.getPassword()) == userDao.getUserById(id).getPassword())
+                if (hashString(u.getPassword()).equals(userDao.getUserById(id).getPassword()))
                     return false;
                 userDao.updateUser(u);
                 return true;
@@ -112,5 +114,21 @@ public class UserServiceLayerImpl implements UserServiceLayer {
                 setUnrealized(user);
             }
             return users;
+    }
+    
+    private void validateUserData(User user) throws
+            UserDataValidationException {
+        if (user.getUsername() == null
+                || user.getUsername().trim().length() == 0
+                || user.getFirstName() == null
+                || user.getFirstName().trim().length() == 0
+                || user.getLastName() == null
+                || user.getLastName().trim().length() == 0
+                || user.getPassword() == null
+                || user.getPassword().trim().length() == 0
+                || user.getRealized() == null) {
+            throw new UserDataValidationException(
+                    "ERROR: All fields [username, firstName, lastName, password, money] are required.");
+        }
     }
 }
