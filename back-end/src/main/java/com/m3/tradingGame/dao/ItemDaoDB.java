@@ -58,7 +58,8 @@ public class ItemDaoDB implements ItemDao{
         jdbc.update(INSERT_ITEM,
                 item.getName(),
                 item.getInitialPrice(),
-                item.getCurrentPrice());
+                item.getCurrentPrice(),
+                item.getAccelerator());
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         item.setId(newId);
@@ -68,11 +69,12 @@ public class ItemDaoDB implements ItemDao{
     @Override
     public void updateItem(Item item) {
         final String UPDATE_ITEM = "UPDATE item SET name = ?, " +
-                "initialPrice = ?, currentPrice = ? WHERE id = ?";
+                "initialPrice = ?, currentPrice = ?, accelerator = ? WHERE id = ?";
         jdbc.update(UPDATE_ITEM,
                 item.getName(),
                 item.getInitialPrice(),
                 item.getCurrentPrice(),
+                item.getAccelerator(),
                 item.getId());
     }
 
@@ -93,6 +95,7 @@ public class ItemDaoDB implements ItemDao{
             item.setName(rs.getString("name"));
             item.setInitialPrice(rs.getBigDecimal("initialPrice"));
             item.setCurrentPrice(rs.getBigDecimal("currentPrice"));
+            item.setAccelerator(rs.getDouble("accelerator"));
             return item;
         }
     }
