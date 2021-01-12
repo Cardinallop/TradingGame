@@ -101,7 +101,7 @@ public class MainController {
 
     //POST ENDPOINTS
 
-    @PostMapping
+    @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Item> createItem(@RequestBody Item i) {
         Item result = itemService.addItem(i);
@@ -122,7 +122,7 @@ public class MainController {
 
     // PUT ENDPOINTS
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     public ResponseEntity updateItem(@PathVariable int id, @RequestBody Item i) {
         ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
         if (id != i.getId()) {
@@ -146,7 +146,7 @@ public class MainController {
 
     //DELETE ENDPOINTS
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity deleteItem(@PathVariable int id) {
         if (itemService.deleteItem(id)) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
