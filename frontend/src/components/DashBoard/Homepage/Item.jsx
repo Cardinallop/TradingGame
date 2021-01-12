@@ -43,12 +43,12 @@ class Item extends Component{
 
         return (
             <tr>
-                <td>{this.state.name}</td>
-                <td>${this.state.price}</td>
-                <td>
+                <td style={{padding: "5px"}}>{this.state.name}</td>
+                <td style={{padding: "5px"}}>${this.state.price}</td>
+                <td style={{padding: "5px"}}>
                     
-                    <div className="form-group row d-flex justify-content-center">
-                        <input type="number" className="form-control" id="qty" style={{width: "70px"}} onChange={this.handleChange}  />
+                    <div className="form-group row d-flex justify-content-center input-group-sm">
+                        <input type="number" className="form-control" id="qty" style={{width: "70px", padding: "0px"}} onChange={this.handleChange}  />
                         <span>/{this.state.quantity}</span>
                     </div>
                     

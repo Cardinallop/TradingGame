@@ -31,7 +31,7 @@ class Homepage extends Component{
             <div className="container" style={{paddingTop: "50px"}}>
                 <div className="row">
 
-                    <div className="col-md-7">
+                    <div className="col-md-6">
                         <div className="d-flex justify-content-center">
                             <button 
                                 className={"btn " + (this.state.showBuy? "btn-dark": "btn-light") + " choiceBtn"}
@@ -44,6 +44,8 @@ class Homepage extends Component{
                         </div>
                         {buysell}
                     </div>
+
+                    <div className="col-md-1"></div>
 
                     <div className="col-md-5">
                         <LeaderBoard />
