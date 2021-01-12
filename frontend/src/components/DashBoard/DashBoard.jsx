@@ -10,6 +10,16 @@ import ProfileInfo from "./Profile/ProfileInfo";
 
 class DashBoard extends Component{
 
+    constructor(props){
+        super();
+
+        // if(props.location.username == null){         
+        //     props.history.push({
+        //         pathname: "/login"
+        //     });
+        // }
+    }
+
     state = {
         showHome: true
     };
@@ -30,11 +40,19 @@ class DashBoard extends Component{
         this.setState({showHome: false});
     }
 
+    logout = () => {
+        this.props.history.push({
+            pathname: "/login"
+        });
+    }
+
     render(){
         let page = this.renderHomeProfile();
         return(
             <div>
-                <Header />
+                <Header 
+                    logout={this.logout}
+                />
                 <div className="d-flex justify-content-center">
                     <button 
                         className={"btn " + (this.state.showHome? "btn-dark": "btn-light") + " choiceBtn"}
