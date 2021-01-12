@@ -6,6 +6,7 @@ import "./DashBoard.css";
 import Header from "./Header";
 import Homepage from "./Homepage/Homepage";
 import ProfileInfo from "./Profile/ProfileInfo";
+import AboutPage from "./pages/about_page";
 
 
 class DashBoard extends Component{
@@ -21,23 +22,29 @@ class DashBoard extends Component{
     }
 
     state = {
-        showHome: true
+        showHome: 0
     };
 
     renderHomeProfile = () => {
-        if(this.state.showHome){
+        if(this.state.showHome == 0){
             return <Homepage />
-        }else{
+        }else if(this.state.showHome == 1){
             return <ProfileInfo />
+        }else if(this.state.showHome == 2){
+            return <AboutPage />
         }
     }
 
     showHome = () => {
-        this.setState({showHome: true});
+        this.setState({showHome: 0});
     }
 
     showProfile = () => {
-        this.setState({showHome: false});
+        this.setState({showHome: 1});
+    }
+
+    showAbout = () => {
+        this.setState({showHome: 2})
     }
 
     logout = () => {
@@ -56,13 +63,17 @@ class DashBoard extends Component{
                 />
                 <div className="d-flex justify-content-center">
                     <button 
-                        className={"btn " + (this.state.showHome? "btn-dark": "btn-light") + " choiceBtn"}
+                        className={"btn " + (this.state.showHome == 0? "btn-dark": "btn-light") + " choiceBtn"}
                         onClick={this.showHome}
                         >Home</button>
                     <button 
-                        className={"btn " + (this.state.showHome? "btn-light": "btn-dark") + " choiceBtn"}
+                        className={"btn " + (this.state.showHome == 1? "btn-dark": "btn-light") + " choiceBtn"}
                         onClick={this.showProfile}
                         >Profile</button>
+                    <button 
+                        className={"btn " + (this.state.showHome == 2? "btn-dark": "btn-light") + " choiceBtn"}
+                        onClick={this.showAbout}
+                        >About</button>
                 </div>
                 {page}
             </div>

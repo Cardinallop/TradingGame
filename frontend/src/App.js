@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import logo from './logo.svg';
 import './App.css';
 import NavBar from "./components/nav_bar"
-import AboutPage from './pages/about_page'
+import AboutPage from './components/DashBoard/pages/about_page'
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,16 +18,17 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar/>
-        <main>
+        {/* <NavBar/> */}
+        {/* <main>
           <Switch>
              <Route path='/about' component={AboutPage} />
           </Switch>
-        </main>
+        </main> */}
         <Route exact path="/" component={LoginPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/dashboard" component={DashBoard} />
+        <Route exact path='/about' component={AboutPage} />
         <Route exact path="/profile" component={ProfileInfo} />
       </div>
     </Router>
