@@ -43,20 +43,21 @@ class SellItem extends Component{
      */
     fillStateWithTestInfo = () => {
         let newState = [];
-        newState.push({
-            name: "apple",
-            price: 5.37,
-            quantity: 5
-        });
+        
         newState.push({
             name: "orange",
             price: 2,
-            quantity: 10
+            quantity: 3
         });
         newState.push({
             name: "watermelon",
             price: 10,
-            quantity: 4
+            quantity: 1
+        });
+        newState.push({
+            name: "apple",
+            price: 5.37,
+            quantity: 2
         });
         this.setState({items: newState});
     }

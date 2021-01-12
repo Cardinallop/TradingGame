@@ -1,5 +1,8 @@
+import React, { Component } from "react";
 import logo from './logo.svg';
 import './App.css';
+import NavBar from "./components/nav_bar"
+import AboutPage from './pages/about_page'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +18,12 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <NavBar/>
+        <main>
+          <Switch>
+             <Route path='/about' component={AboutPage} />
+          </Switch>
+        </main>
         <Route exact path="/" component={LoginPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />

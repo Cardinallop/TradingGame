@@ -39,7 +39,7 @@ class LoginPage extends Component{
 
     redirectToRegister = () => {
         this.props.history.push({
-            pathname: "/login"
+            pathname: "/signup"
         });
     }
 

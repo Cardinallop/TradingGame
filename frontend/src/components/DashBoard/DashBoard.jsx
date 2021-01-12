@@ -52,6 +52,7 @@ class DashBoard extends Component{
             <div>
                 <Header 
                     logout={this.logout}
+                    username={this.props.location.username}
                 />
                 <div className="d-flex justify-content-center">
                     <button 
