@@ -32,4 +32,22 @@ public class UserServiceLayerImpl implements UserServiceLayer {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public User addUser(User u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateUser(int id, User u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteUser(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -33,4 +33,22 @@ public class ItemServiceLayerImpl implements ItemServiceLayer {
 		return null;
 	}
 
+	@Override
+	public Item addItem(Item i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateItem(int id, Item i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteItem(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
