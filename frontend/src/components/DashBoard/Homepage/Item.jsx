@@ -55,16 +55,6 @@ class Item extends Component{
                 </td>
             </tr>
 
-            // <div className="d-flex justify-content-between">
-            //     <span>{this.state.name}: ${this.state.price}</span>
-                
-            //     <form className="form-inline">
-            //         <div className="form-group row">
-            //             <input type="number" className="form-control" id="qty" style={{width: "70px"}} onChange={this.handleChange}  />
-            //             <span >/{this.state.quantity}</span>
-            //         </div>
-            //     </form>
-            // </div>
         );
     }
 }

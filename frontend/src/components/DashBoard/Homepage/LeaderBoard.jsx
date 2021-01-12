@@ -45,9 +45,9 @@ class LeaderBoard extends Component{
     render(){
 
         return(
-            <div class="card">
-                <div class="card-header">LeaderBoard</div>
-                <div class="card-body">
+            <div className="card">
+                <div className="card-header">LeaderBoard</div>
+                <div className="card-body">
                     <table className="table">
                         <thead>
                             <tr>

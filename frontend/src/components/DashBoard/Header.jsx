@@ -1,8 +1,8 @@
 
-function Header(){
+function Header(props){
     return(
         <div className="d-flex justify-content-between">
-            <button className="btn btn-dark">Logout</button>
+            <button type="button" onClick={props.logout} className="btn btn-dark">Logout</button>
             <span>Username</span>
         </div>
     );
