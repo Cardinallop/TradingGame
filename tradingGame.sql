@@ -8,7 +8,8 @@ CREATE TABLE item(
     name VARCHAR(30) NOT NULL,
     UNIQUE(name),
     initialPrice DECIMAL(9, 2) NOT NULL,
-    currentPrice DECIMAL(9, 2) NOT NULL
+    currentPrice DECIMAL(9, 2) NOT NULL,
+    accelerator double NOT NULL
 );
 
 CREATE TABLE difficulty (
@@ -16,13 +17,13 @@ CREATE TABLE difficulty (
     name VARCHAR(30)
 );
 
-CREATE TABLE user(
+CREATE TABLE `user`(
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(30),
     UNIQUE(username),
     firstName VARCHAR(30) NOT NULL,
     lastName VARCHAR(30) NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    `password` VARCHAR(30) NOT NULL,
     money DECIMAL(9, 2) NOT NULL,
     difficultyId INT NOT NULL,
     FOREIGN KEY (difficultyId) REFERENCES difficulty(id)
@@ -38,7 +39,7 @@ CREATE TABLE itemUser(
 
 );
 
-_____________________________________________________________________________________
+________________________________________________________________________________
 Query:
 
 INSERT INTO difficulty (name) VALUES ("easy"), ("medium"), ("hard");
