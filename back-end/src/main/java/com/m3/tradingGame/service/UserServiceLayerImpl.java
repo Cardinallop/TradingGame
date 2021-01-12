@@ -5,6 +5,9 @@ import com.m3.tradingGame.dao.UserDao;
 import com.m3.tradingGame.entities.Item;
 import com.m3.tradingGame.entities.User;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import java.util.List;
 import java.util.Map;
@@ -53,9 +56,30 @@ public class UserServiceLayerImpl implements UserServiceLayer {
 
 	@Override
 	public User addUser(User u) {
-            u.setPassword(u.getPassword());
-            setUnrealized(u);
-            return userDao.addUser(u);
+                u.setPassword(hashString(u.getPassword()));
+                setUnrealized(u);
+                return userDao.addUser(u);
+        }
+        
+        private static String hashString(String password) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-512");
+                
+                byte[] messageDigest = md.digest(password.getBytes());
+                
+                BigInteger bi = new BigInteger(1, messageDigest);
+                
+                String hashPassword = bi.toString(16);
+                
+                while (hashPassword.length() < 32) {
+                    hashPassword = "0" + hashPassword;
+                }
+                
+                return hashPassword;
+                
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 	@Override
