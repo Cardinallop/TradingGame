@@ -82,7 +82,7 @@ public class UserDaoDBTest {
         user.setFirstName("Brock");
         user.setLastName("Pace");
         user.setPassword("goo");
-        user.setMoney(new BigDecimal(35.69));
+        user.setRealized(new BigDecimal(35.69));
         user.setDifficulty("hard");
         user.setItems(items);
         user = userDao.addUser(user);
@@ -110,7 +110,7 @@ public class UserDaoDBTest {
         user.setFirstName("Brock");
         user.setLastName("Pace");
         user.setPassword("goo");
-        user.setMoney(new BigDecimal(35.69));
+        user.setRealized(new BigDecimal(35.69));
         user.setDifficulty("hard");
         user.setItems(items);
         user = userDao.addUser(user);
@@ -120,7 +120,7 @@ public class UserDaoDBTest {
         user2.setFirstName("Frazzle");
         user2.setLastName("Gargleblack");
         user2.setPassword("HereHere");
-        user2.setMoney(new BigDecimal(85.64));
+        user2.setRealized(new BigDecimal(85.64));
         user2.setDifficulty("easy");
         user2.setItems(items);
         user2 = userDao.addUser(user2);
@@ -150,7 +150,7 @@ public class UserDaoDBTest {
         user.setFirstName("Brock");
         user.setLastName("Pace");
         user.setPassword("goo");
-        user.setMoney(new BigDecimal(35.69));
+        user.setRealized(new BigDecimal(35.69));
         user.setDifficulty("hard");
         user.setItems(items);
         user = userDao.addUser(user);
@@ -196,7 +196,7 @@ public class UserDaoDBTest {
         user.setFirstName("Brock");
         user.setLastName("Pace");
         user.setPassword("goo");
-        user.setMoney(new BigDecimal(35.69));
+        user.setRealized(new BigDecimal(35.69));
         user.setDifficulty("hard");
         user.setItems(items);
         user = userDao.addUser(user);
@@ -226,7 +226,7 @@ public class UserDaoDBTest {
         user.setFirstName("Brock");
         user.setLastName("Pace");
         user.setPassword("goo");
-        user.setMoney(new BigDecimal(35.69));
+        user.setRealized(new BigDecimal(35.69));
         user.setDifficulty("hard");
         user.setItems(items);
         user = userDao.addUser(user);
@@ -236,7 +236,7 @@ public class UserDaoDBTest {
         user2.setFirstName("Brock");
         user2.setLastName("Pace");
         user2.setPassword("goo");
-        user2.setMoney(new BigDecimal(69.35));
+        user2.setRealized(new BigDecimal(69.35));
         user2.setDifficulty("hard");
         user2.setItems(items);
         user2 = userDao.addUser(user2);
@@ -246,7 +246,7 @@ public class UserDaoDBTest {
         user3.setFirstName("Brock");
         user3.setLastName("Pace");
         user3.setPassword("goo");
-        user3.setMoney(new BigDecimal(20.59));
+        user3.setRealized(new BigDecimal(20.59));
         user3.setDifficulty("hard");
         user3.setItems(items);
         user3 = userDao.addUser(user3);
@@ -256,7 +256,7 @@ public class UserDaoDBTest {
         user4.setFirstName("Brock");
         user4.setLastName("Pace");
         user4.setPassword("goo");
-        user4.setMoney(new BigDecimal(2.08));
+        user4.setRealized(new BigDecimal(2.08));
         user4.setDifficulty("hard");
         user4.setItems(items);
         user4 = userDao.addUser(user4);
@@ -266,7 +266,7 @@ public class UserDaoDBTest {
         user5.setFirstName("Brock");
         user5.setLastName("Pace");
         user5.setPassword("goo");
-        user5.setMoney(new BigDecimal(10.94));
+        user5.setRealized(new BigDecimal(10.94));
         user5.setDifficulty("hard");
         user5.setItems(items);
         user5 = userDao.addUser(user5);
@@ -276,7 +276,7 @@ public class UserDaoDBTest {
         user6.setFirstName("Brock");
         user6.setLastName("Pace");
         user6.setPassword("goo");
-        user6.setMoney(new BigDecimal(40.07));
+        user6.setRealized(new BigDecimal(40.07));
         user6.setDifficulty("hard");
         user6.setItems(items);
         user6 = userDao.addUser(user6);
@@ -286,7 +286,7 @@ public class UserDaoDBTest {
         user7.setFirstName("Brock");
         user7.setLastName("Pace");
         user7.setPassword("goo");
-        user7.setMoney(new BigDecimal(99.99));
+        user7.setRealized(new BigDecimal(99.99));
         user7.setDifficulty("easy");
         user7.setItems(items);
         user7 = userDao.addUser(user7);
@@ -296,7 +296,7 @@ public class UserDaoDBTest {
         user8.setFirstName("Brock");
         user8.setLastName("Pace");
         user8.setPassword("goo");
-        user8.setMoney(new BigDecimal(100.97));
+        user8.setRealized(new BigDecimal(100.97));
         user8.setDifficulty("medium");
         user8.setItems(items);
         user8 = userDao.addUser(user8);
