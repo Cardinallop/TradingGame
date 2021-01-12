@@ -6,11 +6,11 @@ import com.m3.tradingGame.entities.Item;
 import com.m3.tradingGame.entities.User;
 
 public interface UserServiceLayer {
-	public List<User> getAllUsers();
-	public User getUserById(int id);
-	public User addUser(User u);
-	public boolean updateUser(int id, User u);
-	public boolean deleteUser(int id);
+	List<User> getAllUsers();
+	User getUserById(int id);
+	User addUser(User u);
+	boolean updateUser(int id, User u);
+	boolean deleteUser(int id);
         
-        public List<User> getUsersByDifficulty(String difficulty);
+    List<User> getUsersByDifficulty(String difficulty);
 }

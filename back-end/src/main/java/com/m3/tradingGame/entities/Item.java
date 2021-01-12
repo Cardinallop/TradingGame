@@ -9,11 +9,11 @@ public class Item {
     private String name;
     private BigDecimal initialPrice;
     private BigDecimal currentPrice;
-    private double accelerator;
+    private int accelerator;
 
     public Item() {}
 
-    public Item(int id, String name, BigDecimal initialPrice, BigDecimal currentPrice, double accelerator) {
+    public Item(int id, String name, BigDecimal initialPrice, BigDecimal currentPrice, int accelerator) {
         this.id = id;
         this.name = name;
         this.initialPrice = initialPrice;
@@ -51,10 +51,10 @@ public class Item {
         this.currentPrice = currentPrice;
     }
 
-    public double getAccelerator() {
+    public int getAccelerator() {
         return accelerator;
     }
-    public void setAccelerator(double accelerator) {
+    public void setAccelerator(int accelerator) {
         this.accelerator = accelerator;
     }
 

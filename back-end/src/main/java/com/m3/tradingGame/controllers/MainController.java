@@ -124,10 +124,9 @@ public class MainController {
 
     @PutMapping("/admin/{id}")
     public ResponseEntity updateItem(@PathVariable int id, @RequestBody Item i) {
-        ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
         if (id != i.getId()) {
             response = new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
-        } else if (itemService.updateItem(id, i)) {
+        } else if (itemService.updateItem(i)) {
             response = new ResponseEntity(HttpStatus.NO_CONTENT);
         }
         return response;
@@ -135,7 +134,6 @@ public class MainController {
     
     @PutMapping("/user/{id}")
     public ResponseEntity updateUser(@PathVariable int id, @RequestBody User u) {
-        ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
         if (id != u.getId()) {
             response = new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
         } else if (userService.updateUser(id, u)) {

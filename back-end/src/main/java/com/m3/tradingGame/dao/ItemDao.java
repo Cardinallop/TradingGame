@@ -8,8 +8,9 @@ import java.util.List;
 public interface ItemDao {
     Item getItemById(int id);
     List<Item> getAllItems();
-    List<Item> getAllItemsByUserId(User user);
     Item addItem(Item item);
     void updateItem(Item item);
     void deleteItemById(int id);
+
+    List<Item> getAllItemsByUserId(User user);
 }

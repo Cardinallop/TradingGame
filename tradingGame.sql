@@ -9,7 +9,7 @@ CREATE TABLE item(
     UNIQUE(name),
     initialPrice DECIMAL(9, 2) NOT NULL,
     currentPrice DECIMAL(9, 2) NOT NULL,
-    accelerator double NOT NULL
+    accelerator int NOT NULL
 );
 
 CREATE TABLE difficulty (

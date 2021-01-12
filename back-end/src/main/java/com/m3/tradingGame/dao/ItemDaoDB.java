@@ -95,7 +95,7 @@ public class ItemDaoDB implements ItemDao{
             item.setName(rs.getString("name"));
             item.setInitialPrice(rs.getBigDecimal("initialPrice"));
             item.setCurrentPrice(rs.getBigDecimal("currentPrice"));
-            item.setAccelerator(rs.getDouble("accelerator"));
+            item.setAccelerator(rs.getInt("accelerator"));
             return item;
         }
     }
