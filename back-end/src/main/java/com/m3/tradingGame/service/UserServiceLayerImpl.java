@@ -32,6 +32,7 @@ public class UserServiceLayerImpl implements UserServiceLayer {
             List<User> users = userDao.getAllUsers();
             for(User user : users) {
                 setUnrealized(user);
+                user.setPassword("******");
             }
             return users;
         }
@@ -51,6 +52,7 @@ public class UserServiceLayerImpl implements UserServiceLayer {
 	public User getUserById(int id) {
             User user = userDao.getUserById(id);
             setUnrealized(user);
+            user.setPassword("******");
             return user;            
         }
 
@@ -60,7 +62,9 @@ public class UserServiceLayerImpl implements UserServiceLayer {
                 validateUserData(u);
                 u.setPassword(hashString(u.getPassword()));
                 setUnrealized(u);
-                return userDao.addUser(u);
+                u = userDao.addUser(u);
+                u.setPassword("******");
+                return u;
         }
         
         private static String hashString(String password) {
@@ -88,7 +92,7 @@ public class UserServiceLayerImpl implements UserServiceLayer {
 	public boolean updateUser(int id, User u) {
             try {
                 u.setId(id);
-                if (hashString(u.getPassword()).equals(userDao.getUserById(id).getPassword()))
+                if (!(hashString(u.getPassword()).equals(userDao.getUserById(id).getPassword())))
                     return false;
                 userDao.updateUser(u);
                 return true;
@@ -112,6 +116,7 @@ public class UserServiceLayerImpl implements UserServiceLayer {
         List<User> users = userDao.getUsersByDifficulty(difficulty);
             for(User user : users) {
                 setUnrealized(user);
+                user.setPassword("******");
             }
             return users;
     }
