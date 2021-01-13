@@ -4,6 +4,7 @@ import com.m3.tradingGame.dao.ItemDao;
 import com.m3.tradingGame.entities.Item;
 import com.m3.tradingGame.entities.User;
 import com.m3.tradingGame.service.ItemServiceLayer;
+import com.m3.tradingGame.service.UserDataValidationException;
 import com.m3.tradingGame.service.UserServiceLayer;
 
 import org.apache.coyote.Response;
@@ -114,7 +115,13 @@ public class MainController {
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> createUser(@RequestBody User u) {
-    	User result = userService.addUser(u);
+    	User result = null;
+		try {
+			result = userService.addUser(u);
+		} catch (UserDataValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         if(result == null)
         	return response = new ResponseEntity(null, HttpStatus.NOT_FOUND);
         return response = new ResponseEntity(result, HttpStatus.CREATED);
